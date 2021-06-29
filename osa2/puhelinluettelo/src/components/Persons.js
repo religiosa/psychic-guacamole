@@ -1,19 +1,28 @@
 import React from 'react'
 
-const Persons = ({ persons, filterText }) => {
+const Button = (props) => {
+  return (
+    <button onClick={props.handleClick}>
+      {props.text}
+    </button>
+  )
+}
+
+const Persons = ({ persons, filterText, removePerson }) => {
   return (
     <ul>
       {persons.filter(person => person.name.toLowerCase().includes(filterText.toLowerCase())).map(person =>
-        <Person key={person.name} name={person.name} number={person.number} />
+        <Person key={person.id} person={person} removePerson={removePerson} />
       )}
     </ul>
   )
 }
 
-const Person = (props) => {
+const Person = ({ person, removePerson }) => {
   return (
-    <p>{props.name} {props.number}</p>
+    <li key={person.id}>{person.name} {person.number} <Button text="delete" handleClick={() => removePerson(person)} /></li>
   )
 }
+
 
 export default Persons
